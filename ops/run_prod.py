@@ -37,7 +37,7 @@ print("[운영] 대상: " + str(ROOT) + " (포트 " + PORT + ")")
 
 def read_flag():
     if FLAG.exists():
-        return FLAG.read_text(encoding="utf-16")
+        return FLAG.read_text(encoding="utf-8")
     return ""
 
 
