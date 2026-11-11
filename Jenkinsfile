@@ -59,17 +59,19 @@ pipeline {
     }
     
     post {
-       always {
-        junit allowEmptyResults:true, testResults:'reports/*.xml'
-        publishHTML(target:[
-            reportDir: 'reports',
-            reportFiles: 'data.html, report.html',
-            reportName: 'pytest report',
-            keepAll: true,
-            alwaysLinkToLastBuild: true,
-            allowMissing: true
-        ])
-       }
+       always {          // 성공 · 실패와 관계없이
+            // junit
+            junit allowEmptyResults:true, testResults:'reports/*.xml'
+            
+            // html publish
+            publishHTML(target:[
+                reportDir: 'reports',
+                reportFiles: 'data.html, report.html',
+                reportName: 'pytest report',
+                keepAll: true,
+                alwaysLinkToLastBuild: true,
+                allowMissing: true
+            ])
     //    failure { ... }
     }
 }
