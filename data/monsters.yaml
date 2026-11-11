@@ -1,7 +1,7 @@
 - id: slime
   name: 슬라임
   element: 물
-  level: "3"
+  level: 3
   hp: 40
   atk: 5
   weakness: 전기
