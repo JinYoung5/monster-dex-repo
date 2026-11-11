@@ -58,7 +58,7 @@ pipeline {
         }
     }
     
-    post {
+    post {                     // 모든 단계가 끝난 뒤
        always {          // 성공 · 실패와 관계없이
             // junit
             junit allowEmptyResults:true, testResults:'reports/*.xml'
@@ -72,6 +72,11 @@ pipeline {
                 alwaysLinkToLastBuild: true,
                 allowMissing: true
             ])
-    //    failure { ... }
+
+
+            // 이메일 전송
+            // slack 전송
+        }
+        // failure { ... }        // 실패했을 때만
     }
 }
