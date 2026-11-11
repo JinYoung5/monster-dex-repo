@@ -31,7 +31,7 @@ pipeline {
                 // sh "python3 -m venv .ci-venv"      
                 // bat "python -m venv .ci-venv"        
                 runCmd "${env.PY} -m venv .ci-venv"       
-                runCmd "${env.VPY} -m pip install -q -r requirements.txt pytest"
+                runCmd "${env.VPY} -m pip install -q -r requirements.txt pytest pytest-html"
             }
         }
         stage('Syntax Check') {       
