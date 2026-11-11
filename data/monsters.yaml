@@ -8,7 +8,7 @@
 - id: goblin
   name: 고블린
   element: 땅
-  level: 5
+  level: "5"
   hp: 60
   atk: 12
   weakness: 물
