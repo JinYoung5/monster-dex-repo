@@ -37,7 +37,8 @@ pipeline {
         stage('Syntax Check') {       
             steps {            
                 // py_complie app.py   deploy.py <- 문법 적용
-                runCmd "${env.VPY} -m py_compile app.py deploy.py"       
+                runCmd "${env.VPY} -m py_compile app.py deploy.py"
+                sleep time:3 unit:'SECONDS'       
             }
         }
         stage('Data Check'){
@@ -45,10 +46,13 @@ pipeline {
                 runCmd "${env.VPY} -m pytest -v tests/test_data.py --junitxml=reports/junit.xml --html=reports/report.html --self-contained-html"
             }
         }
-        stage('Test') {       
+
+        
+        stage('API Test') {       
             steps {            
                 // pytest 실행
                 runCmd "${env.VPY} -m pytest -v tests/test_api.py --junitxml=reports/junit.xml --html=reports/report.html --self-contained-html"
+                sleep time:3 unit:'SECONDS'
             }
         }
         stage('Deploy') {       
