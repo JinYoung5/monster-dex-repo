@@ -42,13 +42,13 @@ pipeline {
         }
         stage('Data Check'){
             steps {
-                runCmd "${env.VPY} -m pytest -v tests/test_data.py"
+                runCmd "${env.VPY} -m pytest -v tests/test_data.py --junitxml=reports/junit.xml --html=reports/report.html --self-contained-html"
             }
         }
         stage('Test') {       
             steps {            
                 // pytest 실행
-                runCmd "${env.VPY} -m pytest -v"
+                runCmd "${env.VPY} -m pytest -v tests/test_api.py --junitxml=reports/junit.xml --html=reports/report.html --self-contained-html"
             }
         }
         stage('Deploy') {       
@@ -58,8 +58,18 @@ pipeline {
         }
     }
     
-    // post {                     // 모든 단계가 끝난 뒤
-    //    always { ... }         // 성공 · 실패와 관계없이
-    //    failure { ... }        // 실패했을 때만
-    // }
+    post {
+       always {
+        junit allowEmptyResults:true, testResults:'reports/*.xml'
+        publishHTML(target:[
+            reportDir: 'reports',
+            reportFiles: 'data.html, report.html',
+            reportName: 'pytest report',
+            keepAll: true,
+            alwaysLinkToLastBuild: true,
+            allowMissing: true
+        ])
+       }
+    //    failure { ... }
+    }
 }
